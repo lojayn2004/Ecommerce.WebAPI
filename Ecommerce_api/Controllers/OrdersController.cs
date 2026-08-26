@@ -12,28 +12,28 @@ namespace Ecommerce.api.Controllers
         public async Task<IActionResult> CreateOrder(CreateOrderDto orderDto)
         {
             var order = await _orderService.CreateOrder(orderDto, base.UserEmail);
-            return Ok(order);
+            return ToActionResult(order);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetUserOrders()
         {
             var orders = await _orderService.GetUserOrders(base.UserEmail);
-            return Ok(orders);
+            return ToActionResult(orders);
         }
 
         [HttpGet("{orderId:guid}")]
         public async Task<IActionResult> GetOrderDetails(Guid orderId)
         {
-            var deliveryMethods = await _orderService.GetOrderDetails(orderId, base.UserEmail);
-            return Ok();
+            var orderDetails = await _orderService.GetOrderDetails(orderId, base.UserEmail);
+            return ToActionResult(orderDetails);
         }
         [HttpPost("delivery-methods")] 
         public async Task<IActionResult> GetDeliveryMethods()
         {
             var deliveryMethods = await _orderService.GetDeliveryMethods();
 
-            return Ok(deliveryMethods);
+            return ToActionResult(deliveryMethods);
         }
     }
 }

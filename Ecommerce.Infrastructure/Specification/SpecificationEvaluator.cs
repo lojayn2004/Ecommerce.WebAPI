@@ -1,12 +1,10 @@
-﻿
-
-using Ecommerce.Domain.Common;
+﻿using Ecommerce.Domain.Common;
 using Ecommerce.Domain.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Query;
 
-namespace Ecommerce.Application.Specifications
+namespace Ecommerce.Infrastructure.Specification
 {
     public static class SpecificationEvaluator
     {

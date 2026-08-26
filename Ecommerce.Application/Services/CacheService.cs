@@ -1,5 +1,6 @@
 ﻿
 
+using Ecommerce.Application.Dtos.Baskets;
 using Ecommerce.Application.Dtos.ResultPattern;
 using Ecommerce.Application.ServicesAbstractions;
 using Ecommerce.Domain.Contracts;
@@ -13,12 +14,12 @@ namespace Ecommerce.Application.Services
         {
             var cachedString = await  _cacheRepo.GetAsync(cachedKey);
             if (cachedString == null)
-                return Errors.CachedValueNotFound;
+                return Result<string?>.Failure(ErrorType.NotFound, $"Cached Key {cachedKey} Not Found");
             return Result<string?>.Success(cachedString);
 
         }
 
-        public async Task<Result> SetAsync(string cacheKey, object value, TimeSpan? timeToLive)
+        public async Task<Result<string>> SetAsync(string cacheKey, object value, TimeSpan? timeToLive)
         {
             var jsonOptions = new JsonSerializerOptions()
             {
@@ -26,7 +27,7 @@ namespace Ecommerce.Application.Services
             };
             var valueStrJson = JsonSerializer.Serialize(value, jsonOptions);
             await _cacheRepo.SetAsync(cacheKey, valueStrJson, timeToLive);
-            return Result.Success();
+            return Result<string>.Success("Cached Item Successfully");
         }
 
     }

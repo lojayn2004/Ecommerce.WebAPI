@@ -1,7 +1,7 @@
-﻿using Ecommerce.Application.Specifications;
-using Ecommerce.Domain.Common;
+﻿using Ecommerce.Domain.Common;
 using Ecommerce.Domain.Contracts;
 using Ecommerce.Infrastructure.Data;
+using Ecommerce.Infrastructure.Specification;
 using Microsoft.EntityFrameworkCore;
 
 

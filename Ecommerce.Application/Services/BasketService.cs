@@ -17,24 +17,30 @@ namespace Ecommerce.Application.Services
             var customerBasket = _mapper.Map<CustomerBasket>(basket);
             var createdBasket = await _basketRepo.CreateOrUpdateBasketAsync(customerBasket, TimeToLive);
             if (createdBasket == null)
-                return Errors.FailedBasketCreation;
+     
+                return Result<CustomerBasketDto>.Failure(ErrorType.Server, "Basket Creation Failed");
+           
             return Result<CustomerBasketDto>.Success(basket);
         }
 
-        public async Task<Result> DeleteBasketAsync(string basketId)
+        public async Task<Result<string>> DeleteBasketAsync(string basketId)
         {
+            var basket = await _basketRepo.GetBasketAsync(basketId);
+           
+            if (basket == null)
+                return Result<string>.Failure(ErrorType.NotFound, $"Basket With Id {basketId} Not Found");
             var isDeleted= await _basketRepo.DeleteBasketAsync(basketId);
             if (!isDeleted)
-                return Errors.DeleteBasketFailed;
-            return Result.Success();
+                return Result<string>.Failure(ErrorType.Server, "Basket Deletion Failed");
+            return Result<string>.Success("Deleted Successfully");
         }
 
         public async Task<Result<CustomerBasketDto>> GetBasketAsync(string basketId)
         {
             var basket = await _basketRepo.GetBasketAsync(basketId);
-            // add more clear message like basket with id ... is not found 
+          
             if (basket == null)
-                return Errors.BasketNotFound;
+                return Result<CustomerBasketDto>.Failure(ErrorType.NotFound, $"Basket With Id {basketId} Not Found");
             return Result<CustomerBasketDto>.Success(_mapper.Map<CustomerBasketDto>(basket));
         }
     }

@@ -30,10 +30,12 @@ namespace Ecommerce.Application.Services
         public async Task<Result<AuthResultDto>> Login(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
-            if (user == null) return Errors.InValidUserCredentials;
+            if (user == null) 
+                return Result<AuthResultDto>.Failure(ErrorType.Unauthorized, "Invalid Email or Password");
 
             var isPasswordValid = await _userManager.CheckPasswordAsync(user, loginDto.Password);
-            if (!isPasswordValid) return Errors.InValidUserCredentials;
+            if (!isPasswordValid)
+                return Result<AuthResultDto>.Failure(ErrorType.Unauthorized, "Invalid Email or Password");
 
             return Result<AuthResultDto>.Success(new AuthResultDto()
             {
@@ -53,8 +55,11 @@ namespace Ecommerce.Application.Services
             };
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
-            if (!result.Succeeded)
-                return Errors.UserCreationFailed;
+            if (!result.Succeeded) 
+            {
+                string message = string.Join(", ", result.Errors.Select(e => e.Description));
+                return Result<AuthResultDto>.Failure(ErrorType.Validation, message);
+            }
             return Result<AuthResultDto>.Success(new AuthResultDto()
             {
                 DisplayName = user.DisplayName,

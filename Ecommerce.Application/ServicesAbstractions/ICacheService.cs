@@ -8,6 +8,6 @@ namespace Ecommerce.Application.ServicesAbstractions
     {
         Task<Result<string?>> GetAsync(string cachedKey);
 
-        Task<Result> SetAsync(string cacheKey, object value, TimeSpan? timeToLive);
+        Task<Result<string>> SetAsync(string cacheKey, object value, TimeSpan? timeToLive);
     }
 }

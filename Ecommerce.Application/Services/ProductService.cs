@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Ecommerce.Application.Dtos.Products;
 using Ecommerce.Application.Dtos.ResultPattern;
 using Ecommerce.Application.ServicesAbstractions;
@@ -40,7 +39,9 @@ namespace Ecommerce.Application.Services
         {
             var product = _unitOfWork.GetRepository<Product, int>().GetById(new ProductWithBrandAndTypeSpecification(id));
 
-            return product == null ? Errors.ProductNotFound : Result<ProductDto>.Success(_mapper.Map<ProductDto>(product));
+            if (product == null)
+                return Result<ProductDto>.Failure(ErrorType.NotFound, $"Basket With Id {id} Doesnot Have Items");
+            return Result<ProductDto>.Success(_mapper.Map<ProductDto>(product));
         }
     }
 }

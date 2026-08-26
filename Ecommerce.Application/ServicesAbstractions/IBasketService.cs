@@ -10,7 +10,7 @@ namespace Ecommerce.Application.ServicesAbstractions
         Task<Result<CustomerBasketDto>> GetBasketAsync(string basketId);
 
 
-        Task<Result> DeleteBasketAsync(string basketId);
+        Task<Result<string>> DeleteBasketAsync(string basketId);
 
         Task<Result<CustomerBasketDto>> CreateOrUpdateBasketAsync(CustomerBasketDto basket, TimeSpan? TimeToLive);
     }

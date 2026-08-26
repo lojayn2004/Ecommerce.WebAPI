@@ -1,4 +1,5 @@
 using Ecommerce.api.ActionFilters;
+using Ecommerce.api.Controllers;
 using Ecommerce.Application.Dtos.Products;
 using Ecommerce.Application.ServicesAbstractions;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace Ecommerce_api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductsController(IProductService _productService) : ControllerBase
+    public class ProductsController(IProductService _productService) : ApiBaseController
     {
       
         [HttpGet]
@@ -15,7 +16,7 @@ namespace Ecommerce_api.Controllers
         public async Task<IActionResult> GetAllProducts([FromQuery] ProductQueryParams query)
         {
             var products = await _productService.GetAllProductsAsync(query);
-            return Ok(products);
+            return ToActionResult(products);
 
         }
 
@@ -23,7 +24,7 @@ namespace Ecommerce_api.Controllers
         public IActionResult GetProductById(int id)
         {
             var product = _productService.GetProductById(id);
-            return Ok(product);
+            return ToActionResult(product);
 
         }
 
@@ -31,7 +32,7 @@ namespace Ecommerce_api.Controllers
         public async Task<IActionResult> GetAllBrands()
         {
             var brands = await _productService.GetAllBrandsAsync();
-            return Ok(brands);
+            return ToActionResult(brands);
         }
 
 
@@ -40,7 +41,7 @@ namespace Ecommerce_api.Controllers
         {
 
             var types = await _productService.GetAllTypesAsync();
-            return Ok(types);
+            return ToActionResult(types);
         }
 
     }
