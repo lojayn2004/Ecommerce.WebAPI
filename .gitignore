@@ -1,0 +1,177 @@
+# .NET build outputs
+bin/
+obj/
+out/
+output/
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+*.dll
+*.exe
+*.pdb
+*.nupkg
+*.snupkg
+*.nuget.props
+*.nuget.targets
+
+# Visual Studio files
+.vs/
+*.suo
+*.cache
+*.bak
+*.tmp
+_ReSharper.Cache/
+*.resharper
+*.sln.ide/
+*.swp
+*.swo
+
+# Rider
+.idea/
+*.iml
+*.iws
+
+# Application settings - **CRITICAL TO EXCLUDE**
+appsettings.*.json
+appsettings.json
+!appsettings.template.json  # Optionally allow template file
+
+# Secrets and sensitive data
+secrets.json
+*.secrets
+*.secret
+*.key
+*.p12
+*.pfx
+*.snk
+*.cer
+*.crt
+*.pem
+*.private.*
+*.public.*
+*.env
+.env.*
+!.env.template
+
+# User secrets (ASP.NET Core)
+secrets.json
+*.secrets.json
+
+# Azure Functions
+local.settings.json
+
+# Entity Framework
+*.mdf
+*.ldf
+*.sdf
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Temp files
+*.tmp
+*.temp
+*.cache
+*.cached
+
+# Package management
+packages/
+*.nupkg
+*.snupkg
+*.symbols.nupkg
+*.lock
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+*.coveragejson
+
+# Profiling
+*.vsp
+*.vspx
+*.psess
+*.vspscc
+
+# Code coverage
+*.coverage
+*.coveragexml
+*.coveragejson
+*.codecoverage
+
+# Publish profiles
+*.pubxml.user
+*.publishproj.user
+
+# Docker
+*.dockerignore
+*.containerignore
+
+# Node/npm (if using npm in .NET projects)
+node_modules/
+npm-debug.log
+package-lock.json
+yarn.lock
+
+# Python (if using Python .NET interop)
+__pycache__/
+*.pyc
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+
+# Linux
+*~
+.directory
+
+# Environment specific
+*.local
+*.development.*
+*.staging.*
+*.production.*
+!*.template.*  # Allow template files
+
+# Certificate files
+*.pfx
+*.p12
+*.cer
+*.crt
+*.der
+*.pem
+*.private
+*.public
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Compression
+*.zip
+*.7z
+*.rar
+*.gz
+
+# IIS
+*.csproj.user
+*.pubxml.user
+
+# Project specific
+**/Properties/launchSettings.json
+**/Properties/PublishProfiles/*.pubxml.user
