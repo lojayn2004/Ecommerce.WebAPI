@@ -1,0 +1,42 @@
+[
+  {
+    "Id": 1,
+    "Name": "Standard Delivery",
+    "ShortName": "Standard",
+    "DeliveryTime": "3-5 business days",
+    "Description": "Reliable standard shipping for everyday orders.",
+    "Price": 5.00
+  },
+  {
+    "Id": 2,
+    "Name": "Express Delivery",
+    "ShortName": "Express",
+    "DeliveryTime": "1-2 business days",
+    "Description": "Fast delivery for when you need your order sooner.",
+    "Price": 12.50
+  },
+  {
+    "Id": 3,
+    "Name": "Next Day Delivery",
+    "ShortName": "Next Day",
+    "DeliveryTime": "1 business day",
+    "Description": "Order today, get it delivered by tomorrow.",
+    "Price": 18.99
+  },
+  {
+    "Id": 4,
+    "Name": "Same Day Delivery",
+    "ShortName": "Same Day",
+    "DeliveryTime": "Within 24 hours",
+    "Description": "Get your order delivered on the same day it's placed.",
+    "Price": 25.00
+  },
+  {
+    "Id": 5,
+    "Name": "Free Pickup",
+    "ShortName": "Pickup",
+    "DeliveryTime": "Ready within 2 hours",
+    "Description": "Collect your order for free from the nearest store location.",
+    "Price": 0.00
+  }
+]
