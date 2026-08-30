@@ -1,9 +1,11 @@
 ﻿
 
+using Ecommerce.Application.ServicesAbstractions;
 using Ecommerce.Domain.Contracts;
 using Ecommerce.Domain.Models.Identity;
 using Ecommerce.Infrastructure.Data;
 using Ecommerce.Infrastructure.DataSeeding;
+using Ecommerce.Infrastructure.Payment;
 using Ecommerce.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -45,7 +47,7 @@ namespace Ecommerce.Infrastructure
 
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<ICachingRepository, CachingRepository>();
-            
+            services.AddScoped<IPaymentGatway, StripePaymentGatway>();
             return services;
 
 

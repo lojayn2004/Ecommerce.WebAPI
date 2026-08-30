@@ -20,6 +20,8 @@ namespace Ecommerce.Domain.Models.Orders
             SubTotal = subTotal;
         }
 
+        public string? PaymentIntentId { get; set; }
+
         public string UserEmail { get; private set; } = default!;
 
         public DateTimeOffset OrderDate { get; private set; } = DateTimeOffset.UtcNow;
@@ -41,12 +43,12 @@ namespace Ecommerce.Domain.Models.Orders
             return SubTotal + DeliveryMethod.Price;
         }
 
-        public void MarkPaymnetRecieved()
+        public void MarkPaymentRecieved()
         {
             OrderStatus = OrderStatus.PaymentFailed;
         }
 
-        public void MarkPaymentRecieved()
+        public void MarkPaymentFailed()
         {
             OrderStatus = OrderStatus.PaymentReceived;
         }

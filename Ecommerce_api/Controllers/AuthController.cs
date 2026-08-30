@@ -12,7 +12,7 @@ namespace Ecommerce.api.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDto request)
         {
 
-            return ToActionResult(await _authService.Login(request);
+            return ToActionResult(await _authService.Login(request));
         }
 
         [HttpPost("register")]

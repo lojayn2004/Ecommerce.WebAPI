@@ -2,6 +2,7 @@
 using Ecommerce.api;
 using Ecommerce.Application;
 using Ecommerce.Application.Dtos.Auth;
+using Ecommerce.Application.Dtos.Payment;
 using Ecommerce.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JWT"));
+
+
+builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection("Stripe"));
 
 // Add Infrastructure services 
 builder.Services.AddInfraStructureServices(builder.Configuration);
