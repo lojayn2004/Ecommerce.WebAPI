@@ -12,6 +12,8 @@ namespace Ecommerce.api.Controllers
 
         protected IActionResult ToActionResult<T>(Result<T> result)
         {
+            Console.WriteLine(result.ErrorType.ToString());
+
             if (result.IsSuccess == true)
                 return Ok(new { data = result.Data, success = true });
 

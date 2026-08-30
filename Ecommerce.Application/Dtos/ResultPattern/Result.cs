@@ -6,9 +6,9 @@ namespace Ecommerce.Application.Dtos.ResultPattern
 
     public record Result<T> 
     {
-        public bool IsSuccess { get; private set; }
+        public bool IsSuccess { get; private set; } = true;
 
-        public ErrorType ErrorType { get; private set; }
+        public ErrorType ErrorType { get; private set; } = ErrorType.None;
 
         public string Message { get; private set; }
 
@@ -21,6 +21,7 @@ namespace Ecommerce.Application.Dtos.ResultPattern
         {
             ErrorType = error;
             Message = message;
+            IsSuccess = false;
         }
         private Result(T value)  => Data = value;
         

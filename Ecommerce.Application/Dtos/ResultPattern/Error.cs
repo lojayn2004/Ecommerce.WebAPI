@@ -2,7 +2,7 @@
 
 namespace Ecommerce.Application.Dtos.ResultPattern
 {
-    public enum ErrorType { NotFound, Validation, Unauthorized, NotCreated, NotDeleted, Server}
+    public enum ErrorType { NotFound, Validation, Unauthorized, NotCreated, NotDeleted, Server, None}
 
    
 

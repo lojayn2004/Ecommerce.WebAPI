@@ -1,9 +1,11 @@
 
 using Ecommerce.api;
 using Ecommerce.Application;
+using Ecommerce.Application.AutoMapperProfiles;
 using Ecommerce.Application.Dtos.Auth;
 using Ecommerce.Application.Dtos.Payment;
 using Ecommerce.Infrastructure;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JWT"));
-
+builder.Services.Configure<UrlOptions>(builder.Configuration.GetSection("UrlSettings"));
 
 builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection("Stripe"));
 
@@ -33,9 +35,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseStaticFiles(new StaticFileOptions()
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Files")),
+    RequestPath = "/Files"
+
+});
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
 
 app.Run();

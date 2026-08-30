@@ -16,8 +16,8 @@ namespace Ecommerce.Application.AutoMapperProfiles
             CreateMap<Product, ProductDto>()
                 .ForMember(dest => dest.ProductBrand,
                            opt => opt.MapFrom(src => src.ProductBrand))
-                .ForMember(dest => dest.ProductType, opt => opt.MapFrom(src => src.ProductType));
-
+                .ForMember(dest => dest.ProductType, opt => opt.MapFrom(src => src.ProductType))
+                .ForMember(dest => dest.PictureUrl, opt => opt.MapFrom<PictureUrlResolver>());
 
 
 

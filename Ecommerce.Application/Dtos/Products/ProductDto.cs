@@ -8,7 +8,7 @@ namespace Ecommerce.Application.Dtos.Products
         public string Name { get; set; }
         public string Description { get; set; } = "";
 
-        public string PictureUrl { get; set; } = "";
+        public string PictureUrl { get; set; } = default!;
 
         public decimal Price { get; set; }
 

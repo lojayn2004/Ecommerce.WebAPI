@@ -16,6 +16,7 @@ namespace Ecommerce_api.Controllers
         public async Task<IActionResult> GetAllProducts([FromQuery] ProductQueryParams query)
         {
             var products = await _productService.GetAllProductsAsync(query);
+            Console.WriteLine("Name 02: " + products.Data.Count);
             return ToActionResult(products);
 
         }
