@@ -3,6 +3,7 @@ using Ecommerce.Application.Dtos.Baskets;
 using Ecommerce.Application.Dtos.DeliveryMethods;
 using Ecommerce.Application.Dtos.Order;
 using Ecommerce.Application.Dtos.ResultPattern;
+using Ecommerce.Application.Exceptions;
 using Ecommerce.Application.ServicesAbstractions;
 using Ecommerce.Application.Specifications;
 using Ecommerce.Domain.Contracts;
@@ -37,34 +38,43 @@ namespace Ecommerce.Application.Services
 
             var shippingAddress = _mapper.Map<OrderAddress>(createOrderDto.DeliveryAddress);
 
-            
-            var orderItems = await CreateOrderFromBasket(basket!);
-
-            var subTotal = orderItems.Sum(o => o.Price * o.Quantity);
-
-            var order = new Order(userEmail, shippingAddress, deliveryMethod, orderItems, subTotal);
-           
-            _unitOfWork.GetRepository<Order, Guid>().Add(order);
-            var result = await _unitOfWork.SaveAllChangesAsync();
-            if (result < 1) 
-                return null; // TODO: CHange to meanigful object
-
-            await _basketService.DeleteBasketAsync(createOrderDto.BasketId);
-
-            var orderDto =  new OrderDto()
+            try
             {
-                Id = Guid.NewGuid(),
-                OrderDate = DateTimeOffset.Now,
-                UserEmail = userEmail,
-                ShippingAddress = createOrderDto.DeliveryAddress,
-                DeliveryMethod = deliveryMethod.ShortName,
-                SubTotal = subTotal,
-                DeliveryCost = deliveryMethod.Price,
-                Total = order.GetTotal(),
-                Items = _mapper.Map<IEnumerable<OrderItemDto>>(orderItems)
 
-            };
-            return Result<OrderDto>.Success(orderDto);
+                var orderItems = await CreateOrderFromBasket(basket!);
+
+                var subTotal = orderItems.Sum(o => o.Price * o.Quantity);
+
+                var order = new Order(userEmail, shippingAddress, deliveryMethod, orderItems, subTotal);
+
+                _unitOfWork.GetRepository<Order, Guid>().Add(order);
+                var result = await _unitOfWork.SaveAllChangesAsync();
+                if (result < 1)
+                    return Result<OrderDto>.Failure(ErrorType.Server, "Error Ocurred While Processing The Order");
+
+                await _basketService.DeleteBasketAsync(createOrderDto.BasketId);
+
+                var orderDto = new OrderDto()
+                {
+                    Id = Guid.NewGuid(),
+                    OrderDate = DateTimeOffset.Now,
+                    UserEmail = userEmail,
+                    ShippingAddress = createOrderDto.DeliveryAddress,
+                    DeliveryMethod = deliveryMethod.ShortName,
+                    SubTotal = subTotal,
+                    DeliveryCost = deliveryMethod.Price,
+                    Total = order.GetTotal(),
+                    Items = _mapper.Map<IEnumerable<OrderItemDto>>(orderItems)
+
+                };
+                return Result<OrderDto>.Success(orderDto);
+
+            }
+            catch(ProductNotFoundException ex)
+            {
+                return Result<OrderDto>.Failure(ErrorType.NotFound, ex.Message);
+            }
+            
 
         }
 
@@ -79,7 +89,6 @@ namespace Ecommerce.Application.Services
             var order = await _unitOfWork.GetRepository<Order, Guid>().GetById(new UserOrderSpecification(UserEmail, orderId));
             if (order == null)
                 return Result<OrderDto>.Failure(ErrorType.NotFound, $"Order With Id {orderId} Is not found");
-
 
             var orderDto = _mapper.Map<OrderDto>(order);
             return Result<OrderDto>.Success(orderDto);
@@ -104,11 +113,10 @@ namespace Ecommerce.Application.Services
             foreach(var item in basketItems)
             {
                 var product = await productRepo.GetById(item.Id);
-                // TODO: ADD ERROR MESSAGE
+             
                 if (product == null)
-                {
-                    return [];
-                }
+                    throw new ProductNotFoundException($"Product With Id {product.Id} Not Found");
+
                 orderItems.Add(new OrderItem()
                 {
                     Price = product.Price,

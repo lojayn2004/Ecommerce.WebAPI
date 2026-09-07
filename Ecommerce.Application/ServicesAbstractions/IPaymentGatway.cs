@@ -1,4 +1,4 @@
-﻿using Ecommerce.Application.Dtos;
+﻿using Ecommerce.Application.Dtos.Payment;
 
 
 namespace Ecommerce.Application.ServicesAbstractions

@@ -1,8 +1,6 @@
-﻿
-
-namespace Ecommerce.Application.Exceptions
+﻿namespace Ecommerce.Application.Exceptions
 {
-    internal class ProductNotFoundException: Exception
+    internal class ProductNotFoundException: NotFoundException
     {
         public ProductNotFoundException(string message): base(message) { }
     }

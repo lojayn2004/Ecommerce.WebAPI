@@ -22,11 +22,6 @@ namespace Ecommerce.Application.Services
         public async Task<Result<IReadOnlyList<ProductDto>>> GetAllProductsAsync(ProductQueryParams query)
         {
             var products = await _unitOfWork.GetRepository<Product, int>().GetAllAsync(new ProductWithBrandAndTypeSpecification(query));
-
-            Console.WriteLine("Productssssssssssssssssssssssssssss");
-            foreach (var product in products) Console.WriteLine("Name: " + product.Name);
-           
-
             var mappedProducts = _mapper.Map<IReadOnlyList<ProductDto>>(products);
             return Result<IReadOnlyList<ProductDto>>.Success(mappedProducts);
         }

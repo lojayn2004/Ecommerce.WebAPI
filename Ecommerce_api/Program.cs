@@ -1,5 +1,6 @@
 
 using Ecommerce.api;
+using Ecommerce.api.Middlewares;
 using Ecommerce.Application;
 using Ecommerce.Application.AutoMapperProfiles;
 using Ecommerce.Application.Dtos.Auth;
@@ -28,6 +29,8 @@ var app = builder.Build();
 
 // seed DB Data
 await app.SeedAndMigrateAsync();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

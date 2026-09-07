@@ -6,10 +6,10 @@ namespace Ecommerce.api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BasketController(IBasketService _basketService): ApiBaseController
+    public class BasketController(IBasketService _basketService) : ApiBaseController
     {
 
-        [HttpGet("id")] 
+        [HttpGet("{id}")] 
         public async Task<IActionResult> GetBasketById(string id)
         {
             var basket = await _basketService.GetBasketAsync(id);

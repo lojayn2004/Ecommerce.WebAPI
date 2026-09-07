@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Application.Dtos.Order;
 using Ecommerce.Application.ServicesAbstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.api.Controllers
@@ -8,6 +9,7 @@ namespace Ecommerce.api.Controllers
     [Route("api/[controller]")]
     public class OrdersController(IOrderService _orderService): ApiBaseController
     {
+        [Authorize]
         [HttpPost] 
         public async Task<IActionResult> CreateOrder(CreateOrderDto orderDto)
         {
@@ -15,6 +17,7 @@ namespace Ecommerce.api.Controllers
             return ToActionResult(order);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetUserOrders()
         {
@@ -22,13 +25,14 @@ namespace Ecommerce.api.Controllers
             return ToActionResult(orders);
         }
 
+        [Authorize]
         [HttpGet("{orderId:guid}")]
         public async Task<IActionResult> GetOrderDetails(Guid orderId)
         {
             var orderDetails = await _orderService.GetOrderDetails(orderId, base.UserEmail);
             return ToActionResult(orderDetails);
         }
-        [HttpPost("delivery-methods")] 
+        [HttpGet("delivery-methods")] 
         public async Task<IActionResult> GetDeliveryMethods()
         {
             var deliveryMethods = await _orderService.GetDeliveryMethods();

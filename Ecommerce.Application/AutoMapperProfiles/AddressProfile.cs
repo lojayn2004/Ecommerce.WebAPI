@@ -10,9 +10,6 @@ namespace Ecommerce.Application.AutoMapperProfiles
         public AddressProfile() 
         {
             CreateMap<AddressDto, OrderAddress>();
-       
-        
-        
         }
 
     }

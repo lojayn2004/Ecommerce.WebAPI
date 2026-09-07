@@ -65,9 +65,6 @@ namespace Ecommerce.Application.Services
             {
                 return Result<CustomerBasketDto>.Failure(ErrorType.NotFound, ex.Message);
             }
-
-                     
-
         }
 
         public async Task PaymentFailedAsync(string paymentIntentId)

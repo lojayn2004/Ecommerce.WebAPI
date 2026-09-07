@@ -1,5 +1,4 @@
-﻿using Ecommerce.Application.Dtos;
-using Ecommerce.Application.Dtos.Payment;
+﻿using Ecommerce.Application.Dtos.Payment;
 using Ecommerce.Application.ServicesAbstractions;
 using Microsoft.Extensions.Options;
 using Stripe;

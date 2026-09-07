@@ -7,7 +7,7 @@ namespace Ecommerce.api.Controllers
     
     public class ApiBaseController: ControllerBase
     {
-        protected string UserEmail => User.FindFirstValue(ClaimTypes.Email) ?? throw new UnauthorizedAccessException("User Is Not Authorized");
+        protected string UserEmail =>User.FindFirstValue(ClaimTypes.Email) ?? throw new UnauthorizedAccessException("User Is Not Authorized");
 
 
         protected IActionResult ToActionResult<T>(Result<T> result)

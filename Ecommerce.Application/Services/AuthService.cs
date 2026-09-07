@@ -12,20 +12,7 @@ namespace Ecommerce.Application.Services
     public class AuthService(UserManager<ApplicationUser> _userManager,
         IOptions<JwtOptions> _jwtOptions) : IAuthService
     {
-        public Task<Result<bool>> CheckEmailAsync(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Result<ApplicationUser>> GetCurrentUserAsync(string email)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Result<AddressDto>> GetUserAddressAsync(string email)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public async Task<Result<AuthResultDto>> Login(LoginDto loginDto)
         {
@@ -67,11 +54,6 @@ namespace Ecommerce.Application.Services
                 Token = await JWTUtils.GenerateTokenAsync(user, _jwtOptions, _userManager)
             });
 
-        }
-
-        public Task<Result<AddressDto>> UpdateUserAddressAsync(string email, AddressDto addressDto)
-        {
-            throw new NotImplementedException();
         }
     }
 }

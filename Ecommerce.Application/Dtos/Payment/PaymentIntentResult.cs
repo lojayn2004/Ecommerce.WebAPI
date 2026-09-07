@@ -1,5 +1,4 @@
-﻿
-namespace Ecommerce.Application.Dtos
+﻿namespace Ecommerce.Application.Dtos.Payment
 {
     public class PaymentIntentResult
     {

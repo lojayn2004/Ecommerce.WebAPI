@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using Ecommerce.Application.Dtos.Baskets;
 using Ecommerce.Domain.Models.Basket;
 
