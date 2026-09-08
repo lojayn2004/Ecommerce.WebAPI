@@ -1,7 +1,4 @@
-﻿
-
-using Ecommerce.Application.Dtos.Baskets;
-using Ecommerce.Application.Dtos.ResultPattern;
+﻿using Ecommerce.Application.Dtos.ResultPattern;
 using Ecommerce.Application.ServicesAbstractions;
 using Ecommerce.Domain.Contracts;
 using System.Text.Json;

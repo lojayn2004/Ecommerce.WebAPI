@@ -1,6 +1,4 @@
-﻿
-
-using Ecommerce.Application.Dtos.Auth;
+﻿using Ecommerce.Application.Dtos.Auth;
 using Ecommerce.Domain.Models.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -25,7 +23,7 @@ namespace Ecommerce.Application.Utils
                 issuer: _jwtOptions.Value.Issuer,
                 audience: _jwtOptions.Value.Audience,
                 signingCredentials: signingCredentials,
-                expires: DateTime.Now.AddDays(7)
+                expires: DateTime.UtcNow.AddDays(7)
                 );
             var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
             return token;
@@ -33,9 +31,7 @@ namespace Ecommerce.Application.Utils
 
         }
 
-
-        
-
+       
         private async static Task<List<Claim>> GetClaims(ApplicationUser user, UserManager<ApplicationUser> userManager)
         {
             var claims = new List<Claim>

@@ -1,4 +1,3 @@
-
 using Ecommerce.api;
 using Ecommerce.api.Middlewares;
 using Ecommerce.Application;
@@ -7,6 +6,7 @@ using Ecommerce.Application.Dtos.Auth;
 using Ecommerce.Application.Dtos.Payment;
 using Ecommerce.Infrastructure;
 using Microsoft.Extensions.FileProviders;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +17,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("JWT"));
 builder.Services.Configure<UrlOptions>(builder.Configuration.GetSection("UrlSettings"));
-
 builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection("Stripe"));
 
 // Add Infrastructure services 
@@ -31,6 +30,8 @@ var app = builder.Build();
 await app.SeedAndMigrateAsync();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -46,8 +47,11 @@ app.UseStaticFiles(new StaticFileOptions()
 });
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
-
 app.Run();
+
